@@ -1,6 +1,12 @@
 module MonitRB
   class Config
-    attr_accessor :process
+    attr_accessor :process,
+                  :pid_file,
+                  :shell_command,
+                  :env,
+                  :pwd,
+                  :start,
+                  :stop
 
     def self.create
       config = self.new
