@@ -1,1 +1,2 @@
-require 'monitrb'
+require 'monitrb/config'
+

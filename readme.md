@@ -9,12 +9,17 @@ Usage
 
 Start with a simple configuration for your master node:
 
-```yaml
-require 'monitrb'
-
+```ruby
 MonitRB.create do |config|
-  config.process = 'resque'
-  config.pidfile = '/path/to/pidfile'
+  config.process       = 'resque'
+  config.pidfile       = '/path/to/pidfile'
+
+  config.env           = '/usr/bin/env HOME=/home/user PATH=/usr/local/bin:/usr/local/ruby/bin:/usr/bin:/bin:$PATH RAILS_ENV=production QUEUE=queue_name VERBOSE=1 PIDFILE=tmp/pids/resque_worker_QUEUE.pid'
+  config.shell_command = '/bin/sh -l -c'
+  config.pwd           = '/srv/APP_NAME/current'
+
+  config.start         = "nohup bundle exec rake environment resque:work >> log/resque_worker_QUEUE.log 2>&1"
+  config.stop          = "kill -9 $(cat tmp/pids/resque_worker_QUEUE.pid) && rm -f tmp/pids/resque_worker_QUEUE.pid; exit 0;"
 end
 ```
 
