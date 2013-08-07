@@ -1,7 +1,11 @@
 module MonitRB
   class Config
-    def self.create(&block)
+    attr_accessor :process
+
+    def self.create
       config = self.new
+
+      yield(config) if block_given?
 
       config
     end
