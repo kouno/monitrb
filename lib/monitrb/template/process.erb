@@ -1,0 +1,4 @@
+check <%= @type %> <%= @name %>
+  with pidfile <%= @pid_file %>
+  start program = "<%= format_env %> <%= @shell_command %> 'cd <%= @pwd %> && <%= @start %>'"
+  stop program = "<%= format_env %> <%= @shell_command %> 'cd <%= @pwd %> && <%= @stop %>'"

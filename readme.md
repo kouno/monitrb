@@ -10,11 +10,19 @@ Usage
 Start with a simple configuration for your master node:
 
 ```ruby
-MonitRB.create do |config|
-  config.process       = 'resque'
+require 'monitrb'
+
+MonitRB::Config.create do |config|
+  config.type          = :process
+  config.name          = 'resque'
   config.pidfile       = '/path/to/pidfile'
 
-  config.env           = '/usr/bin/env HOME=/home/user PATH=/usr/local/bin:/usr/local/ruby/bin:/usr/bin:/bin:$PATH RAILS_ENV=production QUEUE=queue_name VERBOSE=1 PIDFILE=tmp/pids/resque_worker_QUEUE.pid'
+  config.env           = { home: '/home/user',
+                           rails_env: 'production',
+                           queue: 'queue_name',
+                           verbose: '1',
+                           pidfile: 'tmp/pids/resque_worker_QUEUE.pid' }
+
   config.shell_command = '/bin/sh -l -c'
   config.pwd           = '/srv/APP_NAME/current'
 
