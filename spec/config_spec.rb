@@ -4,7 +4,7 @@ describe MonitRB::Config do
   describe "::initialize" do
     subject { MonitRB::Config.new}
 
-    it { should respond_to(:type) }
+    it { should respond_to(:conditions) }
     it { should respond_to(:env) }
     it { should respond_to(:name) }
     it { should respond_to(:pid_file) }
@@ -12,6 +12,7 @@ describe MonitRB::Config do
     it { should respond_to(:shell_command) }
     it { should respond_to(:start) }
     it { should respond_to(:stop) }
+    it { should respond_to(:type) }
   end
 
   describe "::create" do

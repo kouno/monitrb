@@ -1,6 +1,7 @@
 module MonitRB
   class Config
-    attr_accessor :env,
+    attr_accessor :conditions,
+                  :env,
                   :name,
                   :pid_file,
                   :pwd,
@@ -22,13 +23,9 @@ module MonitRB
     end
 
     def format_env
-      variables = []
-
       @env.map do |key, value|
-        variables << "#{key.to_s.upcase}=#{value}"
-      end
-
-      variables.join(' ')
+        "#{key.to_s.upcase}=#{value}"
+      end.join(' ')
     end
   end
 end
