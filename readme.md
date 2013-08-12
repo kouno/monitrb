@@ -1,6 +1,8 @@
 MonitRB
 =======
 
+WIP.
+
 MonitRB tries to fill in the gap between your Rails app configuration and your server configuration by providing a
 wrapper around Monit, storing your configuration files within your project.
 

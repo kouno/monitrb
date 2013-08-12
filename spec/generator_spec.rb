@@ -34,19 +34,37 @@ describe MonitRB::Generator do
       config.stop          = stop
       config.conditions    = conditions
     end
-  end
 
-  describe "#run" do
-    it "produces a monit configuration" do
-      expected = <<-MONIT.gsub(/^ *|\n/, '')
+    @expected_conf = <<-MONIT.gsub(/^ *|\n/, '')
         check process resque
           with pidfile /path/to/pidfile
           start program = "HOME=/home/user RAILS_ENV=production QUEUE=queue_name VERBOSE=1 PIDFILE=/path/to/pidfile /bin/sh -l -c 'cd /srv/APP_NAME/current && nohup bundle exec rake environment resque:work >> log/resque_worker_QUEUE.log 2>&1'"
           stop program = "HOME=/home/user RAILS_ENV=production QUEUE=queue_name VERBOSE=1 PIDFILE=/path/to/pidfile /bin/sh -l -c 'cd /srv/APP_NAME/current && kill -9 $(cat /path/to/pidfile) && rm -f /path/to/pidfile; exit 0;'"
           if totalmem > 100.0 MB for 5 cycles then restart
       MONIT
+  end
 
-      expect(subject.run(@monit_config).gsub(/^ *|\n/, '')).to eq(expected)
+  describe "#parse" do
+    it "produces a monit configuration" do
+      expect(subject.parse(@monit_config).to_s.gsub(/^ *|\n/, '')).to eq(@expected_conf)
+    end
+  end
+
+  describe "#write" do
+    before(:each) do
+      FileUtils.rm(filepath) if File.exists?(filepath)
+    end
+
+    after(:each) do
+      FileUtils.rm(filepath) if File.exists?(filepath)
+    end
+
+    let(:filepath) { File.join('tmp', 'monit.conf') }
+
+    it "writes file to specified folder" do
+      subject.parse(@monit_config).write_to(filepath)
+      expect(File.exists?(filepath)).to be_true
+      expect(File.read(filepath).gsub(/^ *|\n/, '')).to eq(@expected_conf)
     end
   end
 end
