@@ -33,5 +33,9 @@ MonitRB::Config.define do |config|
 end
 ```
 
-$ monitrb generate config --path=path/to/monitrb/file
-$ monitrb list
+```bash
+$ # Using a single file
+$ monitrb build --path=path/to/monitrb/file --output=path/to/output/file
+$ # Using a multiple file
+$ monitrb build --path=path/to/monitrb/ --output=path/to/output/file
+```
