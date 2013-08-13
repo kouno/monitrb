@@ -9,6 +9,7 @@ module MonitRB
                   :start,
                   :stop,
                   :type
+    @@stack = []
 
     def self.create
       config = self.new
@@ -18,12 +19,25 @@ module MonitRB
       config
     end
 
+    def self.define(&block)
+      config = self.create(&block)
+      stack << config
+    end
+
+    def self.stack
+      @@stack
+    end
+
     def get_binding
       binding
     end
 
-    def format_env
-      @env.map do |key, value|
+    def conditions=(c)
+      @conditions = c.join("\n  ")
+    end
+
+    def env=(e)
+      @env = e.map do |key, value|
         "#{key.to_s.upcase}=#{value}"
       end.join(' ')
     end

@@ -14,7 +14,7 @@ Start with a simple configuration for your master node:
 ```ruby
 require 'monitrb'
 
-MonitRB::Config.create do |config|
+MonitRB::Config.define do |config|
   config.type          = :process
   config.name          = 'resque'
   config.pidfile       = '/path/to/pidfile'
