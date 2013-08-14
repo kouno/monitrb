@@ -28,6 +28,10 @@ module MonitRB
       @@stack
     end
 
+    def self.clear_stack
+      @@stack = []
+    end
+
     def get_binding
       binding
     end

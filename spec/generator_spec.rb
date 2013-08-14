@@ -1,30 +1,27 @@
 require 'spec_helper'
 
 describe MonitRB::Generator do
-  subject { MonitRB::Generator.new }
+  subject { MonitRB::Generator }
 
   let(:name)          { 'resque' }
   let(:type)          { :process }
   let(:pid_file)      { '/path/to/pidfile' }
   let(:shell_command) { '/bin/sh -l -c' }
   let(:pwd)           { '/srv/APP_NAME/current' }
-
   let(:start)         { "nohup bundle exec rake environment resque:work >> log/resque_worker_QUEUE.log 2>&1" }
   let(:stop)          { "kill -9 $(cat /path/to/pidfile) && rm -f /path/to/pidfile; exit 0;" }
   let(:conditions)    { [ "if totalmem > 100.0 MB for 5 cycles then restart " ] }
-
-  let(:env) { { home: '/home/user',
-                rails_env: 'production',
-                queue: 'queue_name',
-                verbose: '1',
-                pidfile: '/path/to/pidfile' } }
+  let(:env)           { { home: '/home/user',
+                          rails_env: 'production',
+                          queue: 'queue_name',
+                          verbose: '1',
+                          pidfile: '/path/to/pidfile' } }
 
   before(:each) do
     @monit_config = MonitRB::Config.create do |config|
       config.type          = type
       config.name          = name
       config.pid_file      = pid_file
-
       config.env           = env
 
       config.shell_command = shell_command

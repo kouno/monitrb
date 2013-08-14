@@ -1,3 +1,3 @@
-require 'monitrb/config'
-require 'monitrb/generator'
-
+require_relative 'monitrb/config'
+require_relative 'monitrb/generator'
+require_relative 'monitrb/cli'
