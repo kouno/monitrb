@@ -6,7 +6,7 @@ describe MonitRB::CLI do
       MonitRB::Config.define do |config|
         config.type          = :process
         config.name          = 'resque'
-        config.pid_file       = '/path/to/pidfile'
+        config.pid_file      = '/path/to/pidfile'
 
         config.env           = { home: '/home/user',
                                  rails_env: 'production',
