@@ -19,7 +19,7 @@ describe MonitRB::Generator do
 
   let(:expected_conf) { File.read(fixtures_path('monit', 'resque.monitrc')) }
 
-  before(:each) do
+  before(:all) do
     load fixtures_path('monitrb', 'resque.rb')
     @monit_config = MonitRB::Config.stack.pop
   end
