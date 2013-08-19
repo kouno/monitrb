@@ -19,21 +19,20 @@ describe MonitRB::Generator do
 
   let(:expected_conf) { File.read(fixtures_path('monit', 'resque.monitrc')) }
 
-  before(:all) do
+  before(:each) do
     load fixtures_path('monitrb', 'resque.rb')
-    @monit_config = MonitRB::Config.stack.pop
   end
 
   describe "#parse" do
     it "produces a monit configuration" do
-      expect(subject.parse(@monit_config).to_s).to globally_match(expected_conf)
+      expect(subject.parse(MonitRB::Config.stack).to_s).to globally_match(expected_conf)
     end
   end
 
   describe "#write" do
     before(:each) do
       FileUtils.rm(filepath) if File.exists?(filepath)
-      subject.parse(@monit_config).write_to(filepath)
+      subject.parse(MonitRB::Config.stack).write_to(filepath)
     end
 
     after(:each) do

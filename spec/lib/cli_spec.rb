@@ -19,5 +19,10 @@ describe MonitRB::CLI do
       MonitRB::CLI.start %w{ build --path=tmp/input.rb --output=tmp/output.monitrc }
       expect(File.exists?(output_file)).to be_true
     end
+
+    it "can use wildcards to use multiple files" do
+      MonitRB::CLI.start %w{ build --path=tmp/*.rb --output=tmp/output.monitrc }
+      expect(File.exists?(output_file)).to be_true
+    end
   end
 end
