@@ -1,11 +1,11 @@
-def read_fixture(file)
-  File.read(File.expand_path(File.join('..', '..', 'fixtures', file), __FILE__))
+def tmp_path(*file)
+  root_path('tmp', *file)
 end
 
-def load_fixture(file)
-  load File.expand_path(File.join('..', '..', 'fixtures', file), __FILE__)
+def fixtures_path(*file)
+  root_path('spec', 'fixtures', *file)
 end
 
-def read_tmp_file(file)
-  File.read(File.expand_path(File.join('..', '..', '..', 'tmp', file), __FILE__))
+def root_path(*file)
+  File.expand_path(File.join('..', '..', '..', *file), __FILE__)
 end

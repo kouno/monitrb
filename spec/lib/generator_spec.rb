@@ -17,10 +17,10 @@ describe MonitRB::Generator do
                           verbose: '1',
                           pidfile: '/path/to/pidfile' } }
 
-  let(:expected_conf) { read_fixture(File.join('monit', 'resque.monitrc')) }
+  let(:expected_conf) { File.read(fixtures_path('monit', 'resque.monitrc')) }
 
   before(:each) do
-    load_fixture(File.join('monitrb', 'resque.rb'))
+    load fixtures_path('monitrb', 'resque.rb')
     @monit_config = MonitRB::Config.stack.pop
   end
 
