@@ -1,0 +1,5 @@
+check process resque
+  with pidfile /path/to/pidfile
+  start program = "HOME=/home/user RAILS_ENV=production QUEUE=queue_name VERBOSE=1 PIDFILE=/path/to/pidfile /bin/sh -l -c 'cd /srv/APP_NAME/current && nohup bundle exec rake environment resque:work >> log/resque_worker_QUEUE.log 2>&1'"
+  stop program = "HOME=/home/user RAILS_ENV=production QUEUE=queue_name VERBOSE=1 PIDFILE=/path/to/pidfile /bin/sh -l -c 'cd /srv/APP_NAME/current && kill -9 $(cat /path/to/pidfile) && rm -f /path/to/pidfile; exit 0;'"
+  if totalmem > 100.0 MB for 5 cycles then restart

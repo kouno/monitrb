@@ -7,7 +7,7 @@ module MonitRB
     method_option :output, type: :string, default: '', required: true
     def build
       say "Received 1 file.", :green unless options.path.empty?
-      require File.join(Dir.getwd, options.path)
+      load File.join(Dir.getwd, options.path)
       MonitRB::Generator.parse(MonitRB::Config.stack.first).write_to(options.output)
     end
   end

@@ -17,37 +17,16 @@ describe MonitRB::Generator do
                           verbose: '1',
                           pidfile: '/path/to/pidfile' } }
 
+  let(:expected_conf) { read_fixture(File.join('monit', 'resque.monitrc')) }
+
   before(:each) do
-    @monit_config = MonitRB::Config.create do |config|
-      config.type          = type
-      config.name          = name
-      config.pid_file      = pid_file
-      config.env           = env
-
-      config.shell_command = shell_command
-      config.pwd           = pwd
-
-      config.start         = start
-      config.stop          = stop
-      config.conditions    = conditions
-    end
-
-    @expected_conf = <<-MONIT
-        check process resque
-          with pidfile /path/to/pidfile
-          start program = "HOME=/home/user RAILS_ENV=production QUEUE=queue_name VERBOSE=1 PIDFILE=/path/to/pidfile
-            /bin/sh -l -c 'cd /srv/APP_NAME/current && nohup bundle exec rake environment resque:work
-            >> log/resque_worker_QUEUE.log 2>&1'"
-          stop program = "HOME=/home/user RAILS_ENV=production QUEUE=queue_name VERBOSE=1 PIDFILE=/path/to/pidfile
-            /bin/sh -l -c 'cd /srv/APP_NAME/current && kill -9 $(cat /path/to/pidfile) && rm -f /path/to/pidfile;
-            exit 0;'"
-          if totalmem > 100.0 MB for 5 cycles then restart
-      MONIT
+    load_fixture(File.join('monitrb', 'resque.rb'))
+    @monit_config = MonitRB::Config.stack.pop
   end
 
   describe "#parse" do
     it "produces a monit configuration" do
-      expect(subject.parse(@monit_config).to_s).to globally_match(@expected_conf)
+      expect(subject.parse(@monit_config).to_s).to globally_match(expected_conf)
     end
   end
 
@@ -65,7 +44,7 @@ describe MonitRB::Generator do
 
     it "writes file to specified folder" do
       expect(File.exists?(filepath)).to be_true
-      expect(File.read(filepath)).to globally_match(@expected_conf)
+      expect(File.read(filepath)).to globally_match(expected_conf)
     end
   end
 end

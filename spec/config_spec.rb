@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe MonitRB::Config do
   describe "::initialize" do
-    subject { MonitRB::Config.new}
+    subject { MonitRB::Config.new }
 
     it { should respond_to(:conditions) }
     it { should respond_to(:env) }
