@@ -10,8 +10,8 @@ describe MonitRB::CLI do
     File.delete(output_file) if File.exists?(output_file)
   end
 
-  let(:input_file)  { File.expand_path(File.join('..', '..', 'tmp', 'input.rb'), __FILE__) }
-  let(:output_file) { File.expand_path(File.join('..', '..', 'tmp', 'output.monitrc'), __FILE__) }
+  let(:input_file)  { File.expand_path(File.join('..', '..', '..', 'tmp', 'input.rb'), __FILE__) }
+  let(:output_file) { File.expand_path(File.join('..', '..', '..', 'tmp', 'output.monitrc'), __FILE__) }
   let(:config)      { read_fixture(File.join('monitrb', 'resque.rb')) }
 
   describe "::build" do
