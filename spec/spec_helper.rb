@@ -5,4 +5,6 @@ RSpec.configure do |config|
   config.after(:each) do
     MonitRB::Config.clear_stack
   end
+
+  config.include SpecPaths
 end
