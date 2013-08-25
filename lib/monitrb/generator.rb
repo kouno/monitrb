@@ -13,12 +13,7 @@ module MonitRB
     end
 
     def add(config)
-      @configs << convert(config)
-    end
-
-    def convert(config)
-      erb_template = ::ERB.new(File.read(File.join(File.dirname(__FILE__), 'template', 'process.erb')))
-      erb_template.result(config.get_binding)
+      @configs << Template.read(config)
     end
 
     def write_to(filepath)
