@@ -1,5 +1,5 @@
 check <%= @type %> <%= @name %>
   with pidfile <%= @pid_file %>
-  start program = "<%= @env %> <%= @shell_command %> 'cd <%= @pwd %> && <%= @start %>'"
-  stop program = "<%= @env %> <%= @shell_command %> 'cd <%= @pwd %> && <%= @stop %>'"
+  start program = "<%= start_script %>"
+  stop program = "<%= stop_script %>"
   <%= @conditions %>

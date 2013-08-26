@@ -11,7 +11,7 @@ describe MonitRB::Generator do
 
   describe "#parse" do
     it "produces a monit configuration" do
-      expect(subject.parse(MonitRB::Config.stack).to_s).to globally_match(expected_conf)
+      expect(subject.parse(MonitRB::Config.stack).to_s).to eq(expected_conf)
     end
   end
 
@@ -29,7 +29,7 @@ describe MonitRB::Generator do
 
     it "writes file to specified folder" do
       expect(File.exists?(filepath)).to be_true
-      expect(File.read(filepath)).to globally_match(expected_conf)
+      expect(File.read(filepath)).to eq(expected_conf)
     end
   end
 end

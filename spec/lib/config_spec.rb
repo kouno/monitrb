@@ -49,4 +49,25 @@ describe MonitRB::Config do
       expect(MonitRB::Config.stack.first.type).to eq(:process)
     end
   end
+
+  describe "#wrap_script" do
+    before(:each) do
+      subject.start = '/etc/init/sshd start'
+    end
+
+    it "uses `cd` before the start script when pwd is defined" do
+      subject.pwd = '/home/user/'
+      expect(subject.wrap_script(subject.start)).to match %r{cd /home/user}
+    end
+
+    it "uses shell command if it's defined" do
+      subject.shell_command = '/bin/sh -l -c'
+      expect(subject.wrap_script(subject.start)).to match %r{/bin/sh -l -c '.*'}
+    end
+
+    it "uses env variables if they are defined" do
+      subject.env = { fake_var: 'hello' }
+      expect(subject.wrap_script(subject.start)).to match %r{FAKE_VAR=hello .*}
+    end
+  end
 end

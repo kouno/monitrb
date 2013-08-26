@@ -45,5 +45,20 @@ module MonitRB
         "#{key.to_s.upcase}=#{value}"
       end.join(' ')
     end
+
+    def start_script
+      wrap_script(@start)
+    end
+
+    def stop_script
+      wrap_script(@stop)
+    end
+
+    def wrap_script(script)
+      script = "cd #{@pwd} && #{script}"       if @pwd
+      script = "#{@shell_command} '#{script}'" if @shell_command
+      script = "#{@env} #{script}"             if @env
+      script
+    end
   end
 end
