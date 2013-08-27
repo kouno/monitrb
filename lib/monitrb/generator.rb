@@ -21,7 +21,7 @@ module MonitRB
     end
 
     def to_s
-      @configs.join("\n\n")
+      @configs.join("\n")
     end
   end
 end
