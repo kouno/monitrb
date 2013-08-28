@@ -1,5 +1,7 @@
 module MonitRB
   class Config
+    extend MonitRB::Stack
+
     attr_accessor :conditions,
                   :env,
                   :name,
@@ -9,7 +11,7 @@ module MonitRB
                   :start,
                   :stop,
                   :type
-    @@stack = []
+
 
     def self.create
       config = self.new
@@ -21,15 +23,7 @@ module MonitRB
 
     def self.define(&block)
       config = self.create(&block)
-      stack << config
-    end
-
-    def self.stack
-      @@stack
-    end
-
-    def self.clear_stack
-      @@stack = []
+      self.add(config)
     end
 
     def get_binding
