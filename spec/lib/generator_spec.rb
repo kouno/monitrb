@@ -32,4 +32,10 @@ describe MonitRB::Generator do
       expect(File.read(filepath)).to eq(expected_conf)
     end
   end
+
+  describe "#add" do
+    it "adds raw config without using a template" do
+      pending
+    end
+  end
 end

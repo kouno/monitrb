@@ -70,4 +70,10 @@ describe MonitRB::Config do
       expect(subject.wrap_script(subject.start)).to match %r{FAKE_VAR=hello .*}
     end
   end
+
+  describe "::raw" do
+    it "creates a config object" do
+      pending
+    end
+  end
 end
