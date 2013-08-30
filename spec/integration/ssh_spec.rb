@@ -9,7 +9,7 @@ describe "simple SSH config" do
 
   describe "#parse" do
     it "produces a monit configuration" do
-      expect(MonitRB::Generator.parse(MonitRB::Config.stack).to_s).to eq(expected_conf)
+      expect(MonitRB::Generator.new.load(MonitRB::Config.stack).to_s).to eq(expected_conf)
     end
   end
 end

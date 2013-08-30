@@ -10,7 +10,7 @@ module MonitRB
         load path
       end
 
-      MonitRB::Generator.parse(MonitRB::Config.stack).write_to(options.output)
+      MonitRB::Generator.new.load(MonitRB::Config.stack).write_to(options.output)
     end
   end
 end
