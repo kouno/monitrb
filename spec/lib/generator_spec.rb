@@ -34,8 +34,18 @@ describe MonitRB::Generator do
   end
 
   describe "#add" do
-    it "adds raw config without using a template" do
-      pending
+    describe "raw config" do
+      before(:each) do
+        config.raw = "test"
+      end
+
+      let(:config) { MonitRB::Config.new }
+
+      it "uses no template" do
+        generator = subject.new
+        expect(-> { generator.add(config) }).to_not raise_error
+        expect(generator.configs.first).to eq 'test'
+      end
     end
   end
 end

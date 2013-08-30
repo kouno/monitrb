@@ -13,7 +13,11 @@ module MonitRB
     end
 
     def add(config)
-      @configs << Template.read(config)
+      if config.raw.nil? || config.raw.empty?
+        @configs << Template.read(config)
+      else
+        @configs << config.raw
+      end
     end
 
     def write_to(filepath)

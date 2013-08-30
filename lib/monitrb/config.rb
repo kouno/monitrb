@@ -7,6 +7,7 @@ module MonitRB
                   :name,
                   :pid_file,
                   :pwd,
+                  :raw,
                   :shell_command,
                   :start,
                   :stop,
@@ -23,6 +24,14 @@ module MonitRB
 
     def self.define(&block)
       config = self.create(&block)
+      self.add(config)
+    end
+
+    def self.raw(text)
+      config = self.new
+
+      config.raw = text
+
       self.add(config)
     end
 

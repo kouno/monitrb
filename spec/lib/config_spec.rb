@@ -13,6 +13,7 @@ describe MonitRB::Config do
     it { should respond_to(:start) }
     it { should respond_to(:stop) }
     it { should respond_to(:type) }
+    it { should respond_to(:raw) }
 
     it "uses a hash for environment variables and auto format it" do
       subject.env = { rails_env: 'production', arg2: 'test' }
@@ -73,7 +74,11 @@ describe MonitRB::Config do
 
   describe "::raw" do
     it "creates a config object" do
-      pending
+      MonitRB::Config.raw <<-EOL
+        check process test
+          with pidfile /path/to/file
+      EOL
+      expect(MonitRB::Config.stack.count).to eq 1
     end
   end
 end
