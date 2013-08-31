@@ -36,11 +36,7 @@ module MonitRB
     end
 
     def to_s
-      if @raw.nil? || @raw.empty?
-        Template.read(self)
-      else
-        @raw
-      end
+      Template.read(self)
     end
 
     def get_binding

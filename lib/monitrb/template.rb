@@ -13,7 +13,11 @@ module MonitRB
     end
 
     def result
-      ::ERB.new(File.read(path)).result(@config.get_binding)
+      if @config.raw.nil? || @config.raw.empty?
+        ::ERB.new(File.read(path)).result(@config.get_binding)
+      else
+        @config.raw
+      end
     end
   end
 end
