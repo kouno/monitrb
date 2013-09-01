@@ -7,6 +7,7 @@ describe MonitRB::Config do
     it { should respond_to(:conditions) }
     it { should respond_to(:env) }
     it { should respond_to(:name) }
+    it { should respond_to(:path) }
     it { should respond_to(:pid_file) }
     it { should respond_to(:pwd) }
     it { should respond_to(:shell_command) }

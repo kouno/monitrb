@@ -1,0 +1,2 @@
+check file file.md with path /path/to/file
+  if timestamp > 1 minute then alert
