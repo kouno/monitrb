@@ -5,6 +5,7 @@ module MonitRB
     attr_accessor :conditions,
                   :env,
                   :name,
+                  :path,
                   :pid_file,
                   :pwd,
                   :raw,

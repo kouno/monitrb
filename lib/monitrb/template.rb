@@ -9,7 +9,18 @@ module MonitRB
     end
 
     def path
-      File.join(File.dirname(__FILE__), 'template', 'process.erb')
+      File.join(File.dirname(__FILE__), 'template', "#{@config.type}.erb")
+    end
+
+    def filename
+      case @config.type
+      when :process
+        'process'
+      when :file
+        'file'
+      else
+        nil
+      end
     end
 
     def result
