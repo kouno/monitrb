@@ -12,17 +12,6 @@ module MonitRB
       File.join(File.dirname(__FILE__), 'template', "#{@config.type}.erb")
     end
 
-    def filename
-      case @config.type
-      when :process
-        'process'
-      when :file
-        'file'
-      else
-        nil
-      end
-    end
-
     def result
       if @config.raw.nil? || @config.raw.empty?
         ::ERB.new(File.read(path)).result(@config.get_binding)
