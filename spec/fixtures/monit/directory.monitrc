@@ -1,0 +1,2 @@
+check directory dir with path /path/to/dir/
+  if timestamp > 1 minute then alert
