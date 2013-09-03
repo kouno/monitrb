@@ -91,5 +91,17 @@ describe MonitRB::Config do
     it "sets defaults on any configs" do
       expect(subject.env).to eq("RAILS_ENV=production")
     end
+
+    it "throws an error when the default variable doesn't exist" do
+      expect(-> {
+        MonitRB::Config.defaults(envs: {})
+      }).to raise_error(MonitRB::Exceptions::UnexpectedConfigurationVariable, 'Unexpected config variable: envs')
+    end
+
+    it "resets all previously set defaults" do
+      MonitRB::Config.defaults(name: 'helloworld')
+      expect(subject.env).to be_nil
+      expect(subject.name).to eq('helloworld')
+    end
   end
 end

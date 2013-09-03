@@ -38,7 +38,15 @@ module MonitRB
     end
 
     def self.defaults(values)
+      raise MonitRB::Exceptions::UnexpectedConfigurationVariable.new(values) unless self.has_known_keys?(values)
       @@defaults = values
+    end
+
+    def self.has_known_keys?(values)
+      config = self.new
+      values.keys.all? do |key|
+        config.respond_to?(key)
+      end
     end
 
     def initialize
