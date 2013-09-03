@@ -14,6 +14,7 @@ module MonitRB
                   :stop,
                   :type
 
+    @@defaults = {}
 
     def self.create
       config = self.new
@@ -34,6 +35,20 @@ module MonitRB
       config.raw = text
 
       self.add(config)
+    end
+
+    def self.defaults(values)
+      @@defaults = values
+    end
+
+    def initialize
+      set_defaults(@@defaults)
+    end
+
+    def set_defaults(options)
+      options.each do |key, value|
+        send("#{key}=", value)
+      end
     end
 
     def to_s

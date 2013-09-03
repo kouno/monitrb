@@ -82,4 +82,14 @@ describe MonitRB::Config do
       expect(MonitRB::Config.stack.count).to eq 1
     end
   end
+
+  describe "::defaults" do
+    before(:each) do
+      MonitRB::Config.defaults(env: { rails_env: 'production' })
+    end
+
+    it "sets defaults on any configs" do
+      expect(subject.env).to eq("RAILS_ENV=production")
+    end
+  end
 end
