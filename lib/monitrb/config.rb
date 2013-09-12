@@ -26,15 +26,12 @@ module MonitRB
 
     def self.define(&block)
       config = self.create(&block)
+
       self.add(config)
     end
 
     def self.raw(text)
-      config = self.new
-
-      config.raw = text
-
-      self.add(config)
+      self.define { |c| c.raw = text }
     end
 
     def self.defaults(values)
