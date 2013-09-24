@@ -75,11 +75,15 @@ describe MonitRB::Config do
 
   describe "::raw" do
     it "creates a config object" do
-      MonitRB::Config.raw <<-EOL
+      raw_conf = <<-EOL
         check process test
           with pidfile /path/to/file
       EOL
+
+      MonitRB::Config.raw raw_conf
+
       expect(MonitRB::Config.stack.count).to eq 1
+      expect(MonitRB::Config.stack.first.to_s).to be_similar_to(raw_conf)
     end
   end
 
