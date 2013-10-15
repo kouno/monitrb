@@ -17,23 +17,22 @@ describe MonitRB::CLI do
   describe "::build" do
     it "creates a monit configuration file" do
       MonitRB::CLI.start %w{ build --path=tmp/resque.rb --output=tmp/output.monitrc }
-      expect(File.exists?(output_file)).to be_true
+      expect(File).to exist(output_file)
     end
 
     it "can use wildcards to use multiple files" do
       MonitRB::CLI.start %w{ build --path=tmp/*.rb --output=tmp/output.monitrc }
-      expect(File.exists?(output_file)).to be_true
+      expect(File).to exist(output_file)
     end
 
     it "can use multiple arguments for paths" do
       MonitRB::CLI.start %w{ build -p tmp/ssh.rb,tmp/*.rb -o tmp/output.monitrc }
-      expect(File.exists?(output_file)).to be_true
+      expect(File).to exist(output_file)
     end
 
     it "can require a ruby file to define defaults" do
-      pending 'Needs implementation'
       MonitRB::CLI.start %w{ build -p tmp/ssh.rb -o tmp/output.monitrc --defaults tmp/options.rb }
-      expect(File.exists?(output_file)).to be_true
+      expect(File).to exist(output_file)
     end
   end
 end

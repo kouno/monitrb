@@ -41,7 +41,7 @@ describe MonitRB::Generator do
     let(:filepath) { File.join('tmp', 'monit.conf') }
 
     it "writes file to specified folder" do
-      expect(File.exists?(filepath)).to be_true
+      expect(File).to exist(filepath)
       expect(File.read(filepath)).to eq(expected_conf)
     end
   end
